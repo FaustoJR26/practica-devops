@@ -1,0 +1,30 @@
+
+name: Notificacion DevOps ITLA
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  hola-mundo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Ejecutar Hola Mundo
+        run: node hola.js
+
+      - name: Enviar notificacion a ntfy
+        run: |
+          curl -H "Title: Practica 4 - DevOps ITLA" \
+               -H "Tags: white_check_mark" \
+               -d "Se ha subido codigo correctamente a la rama main de FaustoJR26/practica-devops." \
+               https://ntfy.sh/devops-itla
